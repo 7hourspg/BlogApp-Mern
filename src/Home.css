@@ -1,0 +1,13 @@
+.home_ctr{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   height: 46.6rem;
+   text-align: center;
+   font-size: 3rem;
+   text-transform: uppercase;
+}
+.inner_box h2{
+    text-transform: uppercase;
+    color: green;
+}

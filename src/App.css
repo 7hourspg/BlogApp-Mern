@@ -1,0 +1,22 @@
+.login_ctr {
+  background-color: rgb(97, 97, 97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46.6rem;
+}
+form {
+  text-align: center;
+  background-color: white;
+  height: 25rem;
+  width: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+form input{
+width: 90%;
+padding: .5rem 0;
+}
