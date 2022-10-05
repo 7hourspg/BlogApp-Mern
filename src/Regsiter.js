@@ -13,7 +13,7 @@ function App() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/user/register", user).then((res) => {
+    axios.post("http://localhost:3001/user/register", user).then((res) => {
       setUser({ email: "", password: "" });
     });
   };

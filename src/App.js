@@ -3,6 +3,7 @@ import Login from "./Login";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Regsiter from "./Regsiter";
+import Upload from "./Upload";
 export const globalContext = createContext();
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Regsiter />} />
+            <Route path="/upload" element={<Upload />} />
           </Routes>
         </globalContext.Provider>
       </BrowserRouter>
