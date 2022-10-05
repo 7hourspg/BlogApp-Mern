@@ -1,51 +1,69 @@
 import express from "express";
-import Users from "../models/Userschema.js";
-
+import multer from "multer";
+import User from "../models/userschema.js";
+import mongoose from "mongoose";
+// import router from "express";
 const router = express.Router();
-router.get("/", (req, res) => {
-  Users.find()
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+const DIR = "../client/public/uploads";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, Date.now() + "-" + fileName);
+  },
 });
-
-router.post("/register", (req, res) => {
-  const { firstName, email, password } = req.body;
-  const user = Users({ firstName, email, password });
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
+// User model
+// let User = require("../models/User");
+router.post("/upload", upload.single("profileImg"), (req, res, next) => {
+  // const url = req.protocol + "://" + req.get("host");
+  const user = new User({
+    
+    name: req.body.name,
+    other :req.body.other,
+    profileImg: req.file.filename
+  });
   user
     .save()
-    .then(() => {
-      res.send(`Data Reached ${user.firstName}`);
+    .then((result) => {
+      res.status(201).json({
+        message: "User registered successfully!",
+        userCreated: {
+          _id: result._id,
+          profileImg: result.profileImg,
+        },
+      });
     })
     .catch((err) => {
-      res.send('err')
+      console.log(err),
+        res.status(500).json({
+          error: err,
+        });
     });
 });
-
-router.post("/login", (req, res)=> {
-  const { email, password} = req.body
-  Users.findOne({ email: email}, (err, user) => {
-      if(user){
-          if(password === user.password ) {
-              res.send({message: "Login Successfull", user: user})
-          } else {
-              res.send({ message: "Password didn't match"})
-          }
-      } else {
-          res.send({message: "User not registered"})
-      }
-  })
-}) 
-
-
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  Users.findById(id).then((data) => {
-    res.send(data);
+router.get("/", (req, res, next) => {
+  User.find().then((data) => {
+    res.status(200).json({
+      message: "User list retrieved successfully!",
+      users: data,
+    });
+    
   });
 });
-
 export default router;
