@@ -29,7 +29,7 @@ const {setName}=useContext(globalContext)
     nav('/')
     setUser({ email: "", password: "" });
   };
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <div className="login_ctr">

@@ -1,0 +1,18 @@
+.write_ctr{
+    /* background-color: red; */
+    min-height: 50rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* overflow: scroll; */
+}
+.write_ctr form{
+    width: 50rem;
+    /* border: 2px solid red; */
+    min-height: 50rem;
+
+}
+ .write_ctr form textarea{
+    width: 50rem;
+    /* min-height: 50rem; */
+}

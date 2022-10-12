@@ -1,0 +1,58 @@
+.nav_ctr{
+    background-color: #06283D;
+    color: orange;
+}
+.nav_ctr header{
+    display: flex;
+    justify-content:space-between;
+    max-width: 1400px;
+    height: 5rem;
+    align-items: center;
+}
+.nav_ctr header .logo{
+margin-right: 3rem;
+}
+.nav_ctr header .loginfield{
+cursor: pointer;
+}
+.nav_ctr header nav ul{
+    display: flex;
+    /* flex: 2; */
+    /* border: 1px solid red; */
+    justify-content: space-around;
+    gap: 3rem;
+    align-items: center;
+}
+.nav_ctr .webname{
+    font-size: 2em;
+}
+.nav_ctr header nav ul li{
+list-style: none;
+cursor: pointer;
+}
+.nav_ctr header nav ul a{
+text-decoration: none;
+color: orange;
+outline: none;
+}
+.loginfield ul{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.loginfield ul li{
+    list-style: none;
+    text-decoration: none;
+}
+.loginfield ul a{
+    text-decoration: none;
+    color: orange;
+}
+.loginfield ul li button{
+    background-color: blueviolet;
+    color: white;
+    padding: .4rem 1rem; 
+  
+}
+
+

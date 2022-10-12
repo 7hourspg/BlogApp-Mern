@@ -14,8 +14,8 @@ function Upload() {
     e.preventDefault();
     const formData = new FormData();
     formData.append("profileImg", profileImg);
-    formData.append("name", name);
-    formData.append("other", other);
+    formData.append("title", name);
+    formData.append("desc", other);
 
     axios
       .post("http://localhost:3001/user/upload", formData, {})

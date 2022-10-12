@@ -1,0 +1,22 @@
+.footer_ctr{
+    background-color: #06283D;
+    color: orange;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 3rem ;
+}
+.footer_ctr #ul{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+.footer_ctr li{
+    cursor: pointer;
+}
+.footer_ctr #icons{
+        display: flex;
+        gap: 1rem;
+        cursor: pointer;
+}
