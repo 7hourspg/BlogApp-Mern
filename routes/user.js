@@ -1,5 +1,7 @@
 import express from "express";
 import multer from "multer";
+// import Post from "../models/userschema.js";
+import Post from "../models/posts.js";
 import User from "../models/userschema.js";
 import mongoose from "mongoose";
 // import router from "express";
@@ -31,22 +33,22 @@ var upload = multer({
 });
 // User model
 // let User = require("../models/User");
-router.post("/upload", upload.single("profileImg"), (req, res, next) => {
+router.post("/upload", upload.single("img"), (req, res, next) => {
   // const url = req.protocol + "://" + req.get("host");
-  const user = new User({
+  const post = new Post({
     
-    name: req.body.name,
-    other :req.body.other,
-    profileImg: req.file.filename
+    title: req.body.title,
+    desc :req.body.desc,
+    img: req.file.filename
   });
-  user
+  post
     .save()
     .then((result) => {
       res.status(201).json({
-        message: "User registered successfully!",
+        message: "Posted successfully!",
         userCreated: {
           _id: result._id,
-          profileImg: result.profileImg,
+          profileImg: result.img,
         },
       });
     })
@@ -57,13 +59,59 @@ router.post("/upload", upload.single("profileImg"), (req, res, next) => {
         });
     });
 });
-router.get("/", (req, res, next) => {
-  User.find().then((data) => {
+router.get("/posts", (req, res, next) => {
+  Post.find().then((data) => {
     res.status(200).json({
-      message: "User list retrieved successfully!",
-      users: data,
+      message: "Data  list retrieved successfully!",
+      posts: data,
     });
     
   });
 });
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  Post.findById(id).then((data) => {
+    res.send(data);
+  });
+});
+
+// checking login 
+router.post("/login", (req, res)=> {
+  const { email, password} = req.body
+  User.findOne({ email: email}, (err, user) => {
+      if(user){
+          if(password === user.password ) {
+              res.send({message: "Login Successfull", user: user})
+          } else {
+              res.send({ message: "Password didn't match"})
+          }
+      } else {
+          res.send({message: "User not registered"})
+      }
+  })
+}) 
+
+router.post("/register", (req, res) => {
+  const { firstName, email, password } = req.body;
+  const user = User({ firstName, email, password });
+  user
+    .save()
+    .then(() => {
+      res.send(`Data Reached ${user.firstName}`);
+    })
+    .catch((err) => {
+      res.send(err)
+    });
+});
+
+router.get("/", (req, res) => {
+  User.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 export default router;
